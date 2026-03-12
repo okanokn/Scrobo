@@ -8,19 +8,19 @@ Scrobo::Scrobo() {}
 
 void Scrobo::begin() {
   // Set pin modes
-  pinMode(M1IN1, OUTPUT);
-  pinMode(M1IN2, OUTPUT);
+  pinMode(M1DIR, OUTPUT);
   pinMode(M1PWM, OUTPUT);
-  pinMode(M2IN1, OUTPUT);
-  pinMode(M2IN2, OUTPUT);
+  pinMode(M2DIR, OUTPUT);
   pinMode(M2PWM, OUTPUT);
-  pinMode(M3IN1, OUTPUT);
-  pinMode(M3IN2, OUTPUT);
+  pinMode(M3DIR, OUTPUT);
   pinMode(M2PWM, OUTPUT);
+  pinMode(M4DIR, OUTPUT);
+  pinMode(M4PWM, OUTPUT);
   // Stop motors
   analogWrite(M1PWM, 0);
   analogWrite(M2PWM, 0);
   analogWrite(M3PWM, 0);
+  analogWrite(M4PWM, 0);
 
   // pinMode(IRL, INPUT);
   // pinMode(IRC, INPUT);
@@ -31,38 +31,34 @@ void Scrobo::begin() {
 }
 
 void Scrobo::motorSpeed(int m, int speed) {
-  int pinDir1;
-  int pinDir2;
+  int pinDir;
   int pinPWM;
   if (m == 1) {
-    pinDir1 = M1IN1;
-    pinDir2 = M1IN2;
+    pinDir = M1DIR;
     pinPWM = M1PWM;
   } else if (m == 2) {
-    pinDir1 = M2IN1;
-    pinDir2 = M2IN2;
+    pinDir = M2DIR;
     pinPWM = M2PWM;
   } else if (m == 3) {
-    pinDir1 = M3IN1;
-    pinDir2 = M3IN2;
+    pinDir = M3DIR;
     pinPWM = M3PWM;
+  } else if (m == 4) {
+    pinDir = M4DIR;
+    pinPWM = M4PWM;
   } else {
     return;
   }
 
-  if (speed == 0) {
-    digitalWrite(pinDir1, HIGH);  // STOP
-    digitalWrite(pinDir2, HIGH);
-    analogWrite(pinPWM, 0);
-    return;
-  }
+  // if (speed == 0) {
+  //   digitalWrite(pinDir, HIGH);  // STOP
+  //   analogWrite(pinPWM, 0);
+  //   return;
+  // }
   if (speed < 0) {
-    digitalWrite(pinDir1, LOW);   // CCW
-    digitalWrite(pinDir2, HIGH);  // CCW
+    digitalWrite(pinDir, HIGH);  // CCW
     speed = -speed;
   } else {
-    digitalWrite(pinDir1, HIGH);  // CW
-    digitalWrite(pinDir2, LOW);   // CW
+    digitalWrite(pinDir, LOW);  // CW
   }
   if (speed > MAXDUTY) {
     speed = MAXDUTY;
@@ -73,3 +69,4 @@ void Scrobo::motorSpeed(int m, int speed) {
 void Scrobo::setSpeedM1(int speed) { motorSpeed(1, speed); }
 void Scrobo::setSpeedM2(int speed) { motorSpeed(2, speed); }
 void Scrobo::setSpeedM3(int speed) { motorSpeed(3, speed); }
+void Scrobo::setSpeedM4(int speed) { motorSpeed(4, speed); }

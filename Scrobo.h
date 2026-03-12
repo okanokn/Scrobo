@@ -2,15 +2,14 @@
 #define Scrobo_h
 #include "Arduino.h"
 
-#define M1PWM 5   // PWMA
-#define M1IN1 8   // AIN1
-#define M1IN2 7   // AIN2
-#define M2PWM 6   // PWMB
-#define M2IN1 11  // BIN1
-#define M2IN2 12  // BIN2
-#define M3PWM 9   // PWMA
-#define M3IN1 2   // AIN1
-#define M3IN2 4   // AIN2
+#define M1PWM 6
+#define M1DIR 7
+#define M2PWM 5
+#define M2DIR 4
+#define M3PWM 9
+#define M3DIR 8
+#define M4PWM 10
+#define M4DIR 11
 // STBY is set HIGH on the board
 
 // #define IRL A0
@@ -30,6 +29,7 @@ class Scrobo {
   void setSpeedM1(int speed);
   void setSpeedM2(int speed);
   void setSpeedM3(int speed);
+  void setSpeedM4(int speed);
 };
 
 #endif
